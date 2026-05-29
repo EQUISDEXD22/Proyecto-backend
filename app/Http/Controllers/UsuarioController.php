@@ -7,8 +7,16 @@ use App\Models\User;
 use App\Models\Rol;
 use Illuminate\Support\Facades\Hash;
 
+/**
+ * Controlador UsuarioController
+ * 
+ * Gestiona las operaciones CRUD sobre usuarios.
+ * Solo accesible para usuarios con rol administrador.
+ 
+ */
 class UsuarioController extends Controller
 {
+    //listar usuarios
     public function index()
     {
         return response()->json(User::with('rol')->get());
@@ -20,6 +28,7 @@ class UsuarioController extends Controller
         return response()->json($usuario);
     }
 
+    //crear
     public function store(Request $request)
     {
         $request->validate([
@@ -29,7 +38,6 @@ class UsuarioController extends Controller
             'password'  => 'required|min:6',
             'rol_id'    => 'required|exists:roles,id',
         ]);
-
         $usuario = User::create([
             'nombre'    => $request->nombre,
             'apellidos' => $request->apellidos,
@@ -41,7 +49,7 @@ class UsuarioController extends Controller
 
         return response()->json($usuario->load('rol'), 201);
     }
-
+    //update
     public function update(Request $request, $id)
     {
         $usuario = User::findOrFail($id);
@@ -62,7 +70,7 @@ class UsuarioController extends Controller
         $usuario->update($request->all());
         return response()->json($usuario->load('rol'));
     }
-
+    //desactivar cuenta
     public function destroy($id)
     {
         $usuario = User::findOrFail($id);
@@ -75,7 +83,7 @@ class UsuarioController extends Controller
     {
         return response()->json(Rol::all());
     }
-
+    //reactivar
     public function activar($id)
     {
         $usuario = User::findOrFail($id);

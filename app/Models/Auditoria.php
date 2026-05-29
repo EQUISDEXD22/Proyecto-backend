@@ -1,7 +1,12 @@
 <?php
 namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
-
+/**
+ * Modelo Auditoria
+ * 
+ * Registra automáticamente todas las acciones realizadas sobre los formularios.
+ * Permite reconstruir el historial completo de cualquier formulario.
+ */
 class Auditoria extends Model
 {
     protected $table = 'auditoria';

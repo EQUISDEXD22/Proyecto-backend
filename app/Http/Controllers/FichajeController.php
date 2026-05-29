@@ -4,8 +4,15 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Fichaje;
 
+/**
+ * Controlador FichajeController
+ * 
+ * Gestiona el registro de entradas y salidas.
+ */
 class FichajeController extends Controller
 {
+    //listar, agente solo ve sus registros, administradores 
+    //y supervisores ven todos
     public function index(Request $request)
     {
         $user = $request->user();
@@ -21,6 +28,7 @@ class FichajeController extends Controller
         return response()->json($fichajes);
     }
 
+    //fichaje, asocia usuario a la entrada/salida
     public function fichar(Request $request)
     {
         $request->validate([

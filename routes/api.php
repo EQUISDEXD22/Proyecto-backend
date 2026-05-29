@@ -12,11 +12,11 @@ Route::post('/login', [AuthController::class, 'login']);
 
 Route::middleware('auth:sanctum')->group(function () {
 
-    // Auth
+    //Auth
     Route::post('/logout', [AuthController::class, 'logout']);
     Route::get('/me', [AuthController::class, 'me']);
 
-    // Usuarios — solo admin
+    //Usuarios solo admin
     Route::middleware('rol:admin')->group(function () {
         Route::get('/usuarios', [UsuarioController::class, 'index']);
         Route::post('/usuarios', [UsuarioController::class, 'store']);
@@ -27,7 +27,7 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::get('/roles', [UsuarioController::class, 'roles']);
     });
 
-    // Tipos de formulario — admin gestiona, todos consultan
+    //Tipos de formulario admin gestiona
     Route::get('/tipos-formulario', [TipoFormularioController::class, 'index']);
     Route::get('/tipos-formulario/{id}', [TipoFormularioController::class, 'show']);
     Route::middleware('rol:admin')->group(function () {
@@ -39,18 +39,18 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::delete('/campos/{id}', [CampoController::class, 'destroy']);
     });
 
-    // Formularios — todos los roles
+    //Formularios
     Route::get('/formularios', [FormularioController::class, 'index']);
     Route::get('/formularios/{id}', [FormularioController::class, 'show']);
     Route::post('/formularios', [FormularioController::class, 'store']);
     Route::put('/formularios/{id}', [FormularioController::class, 'update']);
     Route::patch('/formularios/{id}/estado', [FormularioController::class, 'cambiarEstado']);
 
-    // Fichajes
+    //Fichajes
     Route::get('/fichajes', [FichajeController::class, 'index']);
     Route::post('/fichajes', [FichajeController::class, 'fichar']);
 
-    // Auditoría — solo admin y supervisor
+    //Auditoría
     Route::middleware('rol:admin,supervisor')->group(function () {
         Route::get('/auditoria', [AuditoriaController::class, 'index']);
         Route::get('/auditoria/formulario/{id}', [AuditoriaController::class, 'porFormulario']);

@@ -6,6 +6,12 @@ use Illuminate\Http\Request;
 use App\Models\Formulario;
 use App\Models\Auditoria;
 
+/**
+ * Controlador FormularioController
+ * 
+ * Gestiona el ciclo de vida de los formularios.
+ * Cada cambio de estado genera un registro  en la tabla auditoría.
+ */
 class FormularioController extends Controller
 {
     public function index(Request $request)
@@ -33,7 +39,7 @@ class FormularioController extends Controller
         $formulario = Formulario::with(['usuario', 'tipoFormulario', 'respuestas.campo'])->findOrFail($id);
         return response()->json($formulario);
     }
-
+    //crear
     public function store(Request $request)
     {
         $request->validate([
@@ -69,7 +75,7 @@ class FormularioController extends Controller
 
         return response()->json($formulario->load(['respuestas.campo', 'tipoFormulario']), 201);
     }
-
+    //update
     public function update(Request $request, $id)
     {
         $formulario = Formulario::findOrFail($id);
@@ -99,7 +105,7 @@ class FormularioController extends Controller
 
         return response()->json($formulario->load(['respuestas.campo', 'tipoFormulario']));
     }
-
+    //Cambiar estados a valido o denegado
     public function cambiarEstado(Request $request, $id)
     {
         $request->validate([
