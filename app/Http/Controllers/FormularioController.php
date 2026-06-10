@@ -18,7 +18,7 @@ class FormularioController extends Controller
     public function index(Request $request)
     {
         $user = $request->user();
-        $query = Formulario::with(['usuario', 'tipoFormulario', 'respuestas.campo']);
+        $query = Formulario::with(['usuario', 'tipoFormulario', 'respuestas.campo', 'imagenes']);
 
         if ($user->rol->nombre === 'agente') {
             $query->where('usuario_id', $user->id);
@@ -37,9 +37,10 @@ class FormularioController extends Controller
 
     public function show($id)
     {
-        $formulario = Formulario::with(['usuario', 'tipoFormulario', 'respuestas.campo'])->findOrFail($id);
+        $formulario = Formulario::with(['usuario', 'tipoFormulario', 'respuestas.campo', 'imagenes'])->findOrFail($id);
         return response()->json($formulario);
     }
+    
     //crear
     public function store(Request $request)
     {
@@ -135,7 +136,8 @@ class FormularioController extends Controller
         $formulario = Formulario::with([
             'usuario',
             'tipoFormulario',
-            'respuestas.campo'
+            'respuestas.campo',
+            'imagenes'
         ])->findOrFail($id);
 
         $pdf = Pdf::loadView('formulario_pdf', compact('formulario'));

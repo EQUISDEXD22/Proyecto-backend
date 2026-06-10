@@ -7,6 +7,7 @@ use App\Http\Controllers\CampoController;
 use App\Http\Controllers\FormularioController;
 use App\Http\Controllers\FichajeController;
 use App\Http\Controllers\AuditoriaController;
+use App\Http\Controllers\ImagenController;
 
 Route::post('/login', [AuthController::class, 'login']);
 
@@ -48,6 +49,10 @@ Route::middleware('auth:sanctum')->group(function () {
 
     //PDF
     Route::get('/formularios/{id}/pdf', [FormularioController::class, 'exportarPdf']);
+    
+    //Imagenes
+    Route::post('/formularios/{id}/imagenes', [ImagenController::class, 'store']);
+    Route::delete('/imagenes/{id}', [ImagenController::class, 'destroy']);
     
     //Fichajes
     Route::get('/fichajes', [FichajeController::class, 'index']);

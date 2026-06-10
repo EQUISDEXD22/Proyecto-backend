@@ -35,7 +35,7 @@
                 <td>{{ $formulario->tipoFormulario->nombre ?? '—' }}</td>
             </tr>
             <tr>
-                <td class="label">Agente</td>
+                <td class="label">Agnete</td>
                 <td>{{ $formulario->usuario->nombre ?? '' }} {{ $formulario->usuario->apellidos ?? '' }}</td>
             </tr>
             <tr>
@@ -71,8 +71,26 @@
                 <div class="valor">{{ $respuesta->valor ?: '(sin respuesta)' }}</div>
             </div>
         @empty
-            <p>Este formulario no tiene respuestas registradas.</p>
+            <p>Este formulario no tiene respuestas</p>
         @endforelse
     </div>
+
+    @if($formulario->imagenes && count($formulario->imagenes) > 0)
+        <div class="campos">
+            <h2>Imágenes adjuntas</h2>
+            @foreach($formulario->imagenes as $imagen)
+                @php
+                    $rutaCompleta = storage_path('app/public/' . $imagen->ruta);
+                    $tipoImagen = pathinfo($rutaCompleta, PATHINFO_EXTENSION);
+                    $datosImagen = base64_encode(file_get_contents($rutaCompleta));
+                    $imagenBase64 = 'data:image/' . $tipoImagen . ';base64,' . $datosImagen;
+                @endphp
+                <div style="margin-bottom: 15px;">
+                    <img src="{{ $imagenBase64 }}" 
+                        style="max-width: 400px; max-height: 300px; border: 1px solid #eee; border-radius: 4px;">
+                </div>
+            @endforeach
+        </div>
+    @endif
 </body>
 </html>
