@@ -16,4 +16,5 @@ class Formulario extends Model
     public function tipoFormulario() { return $this->belongsTo(TipoFormulario::class, 'tipo_formulario_id'); }
     public function respuestas() { return $this->hasMany(Respuesta::class, 'formulario_id'); }
     public function auditoria() { return $this->hasMany(Auditoria::class, 'formulario_id'); }
+    public function imagenes(){return $this->hasMany(Imagen::class, 'formulario_id'); }
 }

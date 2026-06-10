@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Formulario;
 use App\Models\Auditoria;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 /**
  * Controlador FormularioController
@@ -126,5 +127,19 @@ class FormularioController extends Controller
         ]);
 
         return response()->json($formulario);
+    }
+
+    //pdf 
+    public function exportarPdf($id)
+    {
+        $formulario = Formulario::with([
+            'usuario',
+            'tipoFormulario',
+            'respuestas.campo'
+        ])->findOrFail($id);
+
+        $pdf = Pdf::loadView('formulario_pdf', compact('formulario'));
+
+        return $pdf->download('formulario_' . $formulario->id . '.pdf');
     }
 }
