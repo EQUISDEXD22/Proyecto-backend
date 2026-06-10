@@ -46,6 +46,9 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::put('/formularios/{id}', [FormularioController::class, 'update']);
     Route::patch('/formularios/{id}/estado', [FormularioController::class, 'cambiarEstado']);
 
+    //PDF
+    Route::get('/formularios/{id}/pdf', [FormularioController::class, 'exportarPdf']);
+    
     //Fichajes
     Route::get('/fichajes', [FichajeController::class, 'index']);
     Route::post('/fichajes', [FichajeController::class, 'fichar']);
