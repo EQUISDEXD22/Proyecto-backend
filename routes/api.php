@@ -26,6 +26,8 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::delete('/usuarios/{id}', [UsuarioController::class, 'destroy']);
         Route::patch('/usuarios/{id}/activar', [UsuarioController::class, 'activar']);
         Route::get('/roles', [UsuarioController::class, 'roles']);
+        Route::get('/auditoria', [AuditoriaController::class, 'index']);
+        Route::get('/auditoria/formulario/{id}', [AuditoriaController::class, 'porFormulario']);
     });
 
     //Tipos de formulario admin gestiona
@@ -63,8 +65,6 @@ Route::middleware('auth:sanctum')->group(function () {
 
     //Auditoría
     Route::middleware('rol:admin,supervisor')->group(function () {
-        Route::get('/auditoria', [AuditoriaController::class, 'index']);
-        Route::get('/auditoria/formulario/{id}', [AuditoriaController::class, 'porFormulario']);
         Route::get('/agentes', [FormularioController::class, 'agentes']); 
     });
 });
