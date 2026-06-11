@@ -54,6 +54,9 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/formularios/{id}/imagenes', [ImagenController::class, 'store']);
     Route::delete('/imagenes/{id}', [ImagenController::class, 'destroy']);
     
+    //Para estadisiticas
+    Route::get('/estadisticas', [FormularioController::class, 'estadisticas']);
+
     //Fichajes
     Route::get('/fichajes', [FichajeController::class, 'index']);
     Route::post('/fichajes', [FichajeController::class, 'fichar']);
@@ -62,5 +65,6 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::middleware('rol:admin,supervisor')->group(function () {
         Route::get('/auditoria', [AuditoriaController::class, 'index']);
         Route::get('/auditoria/formulario/{id}', [AuditoriaController::class, 'porFormulario']);
+        Route::get('/agentes', [FormularioController::class, 'agentes']); 
     });
 });
