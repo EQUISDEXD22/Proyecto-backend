@@ -14,7 +14,6 @@ class ImagenController extends Controller
      * Controlador imagen
      * 
      * Valida que los archivos sean imágenes y no superen un tamaño.
-
      */
     public function store(Request $request, $formularioId)
     {

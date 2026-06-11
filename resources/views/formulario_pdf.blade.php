@@ -35,7 +35,7 @@
                 <td>{{ $formulario->tipoFormulario->nombre ?? '—' }}</td>
             </tr>
             <tr>
-                <td class="label">Agnete</td>
+                <td class="label">Agente</td>
                 <td>{{ $formulario->usuario->nombre ?? '' }} {{ $formulario->usuario->apellidos ?? '' }}</td>
             </tr>
             <tr>
